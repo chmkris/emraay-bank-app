@@ -2,7 +2,12 @@
 // This pipeline clones from GitHub, builds, uploads to Nexus, and creates Docker image
 
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'maven:3.8.1-openjdk-11'
+            args '-v /var/run/docker.sock:/var/run/docker.sock -u root'
+        }
+    }
 
     parameters {
         string(name: 'GITHUB_REPO', defaultValue: 'https://github.com/chmkris/emraay-bank-app.git', description: 'GitHub Repository URL')
