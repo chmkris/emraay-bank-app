@@ -215,7 +215,7 @@ EOF
             echo '❌ Pipeline execution failed!'
         }
         always {
-            node {
+            node('any') {
                 echo '🔍 Checking workspace artifacts...'
                 sh 'ls -lah target/ || echo "No target directory"'
             }
