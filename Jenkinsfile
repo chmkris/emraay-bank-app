@@ -3,6 +3,12 @@
 
 pipeline {
     agent any
+    
+    options {
+        timestamps()
+        timeout(time: 30, unit: 'MINUTES')
+        skipDefaultCheckout()
+    }
 
     parameters {
         string(name: 'GITHUB_REPO', defaultValue: 'https://github.com/chmkris/emraay-bank-app.git', description: 'GitHub Repository URL')
@@ -21,8 +27,6 @@ pipeline {
     }
 
     options {
-        timestamps()
-        timeout(time: 30, unit: 'MINUTES')
         buildDiscarder(logRotator(numToKeepStr: '5'))
     }
 
