@@ -2,12 +2,7 @@
 // This pipeline clones from GitHub, builds, uploads to Nexus, and creates Docker image
 
 pipeline {
-    agent {
-        docker {
-            image 'maven:3.8.1-openjdk-11'
-            args '-v /var/run/docker.sock:/var/run/docker.sock -u root'
-        }
-    }
+    agent any
 
     parameters {
         string(name: 'GITHUB_REPO', defaultValue: 'https://github.com/chmkris/emraay-bank-app.git', description: 'GitHub Repository URL')
@@ -50,6 +45,12 @@ pipeline {
         }
 
         stage('🏗️ Build with Maven') {
+            agent {
+                docker {
+                    image 'maven:3.8.1-openjdk-11'
+                    args '-v /var/run/docker.sock:/var/run/docker.sock -u root'
+                }
+            }
             steps {
                 script {
                     echo "╔════════════════════════════════════════════════════╗"
@@ -71,6 +72,12 @@ pipeline {
         }
 
         stage('📊 Run Tests') {
+            agent {
+                docker {
+                    image 'maven:3.8.1-openjdk-11'
+                    args '-v /var/run/docker.sock:/var/run/docker.sock -u root'
+                }
+            }
             steps {
                 script {
                     echo "╔════════════════════════════════════════════════════╗"
@@ -86,6 +93,12 @@ pipeline {
         }
 
         stage('📦 Upload to Nexus') {
+            agent {
+                docker {
+                    image 'maven:3.8.1-openjdk-11'
+                    args '-v /var/run/docker.sock:/var/run/docker.sock -u root'
+                }
+            }
             steps {
                 script {
                     echo "╔════════════════════════════════════════════════════╗"
@@ -121,6 +134,12 @@ pipeline {
         }
 
         stage('🐳 Build Docker Image') {
+            agent {
+                docker {
+                    image 'maven:3.8.1-openjdk-11'
+                    args '-v /var/run/docker.sock:/var/run/docker.sock -u root'
+                }
+            }
             steps {
                 script {
                     echo "╔════════════════════════════════════════════════════╗"
@@ -161,6 +180,12 @@ EOF
         }
 
         stage('📤 Push to Registry') {
+            agent {
+                docker {
+                    image 'maven:3.8.1-openjdk-11'
+                    args '-v /var/run/docker.sock:/var/run/docker.sock -u root'
+                }
+            }
             steps {
                 script {
                     echo "╔════════════════════════════════════════════════════╗"
